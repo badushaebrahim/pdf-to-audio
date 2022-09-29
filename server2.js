@@ -3,18 +3,12 @@ var multer  = require('multer');
 var fs  = require('fs');
 var path = require('path');
 var pdfUtil = require('pdf-to-text');
-const {PythonShell} =require('python-shell');
 const generateUniqueId = require('generate-unique-id');
 const {PythonShell} =require('python-shell');
 // var options = {
 //     root: 
 // };
-let options = {
-        mode: 'text',
-        pythonOptions: ['-u'], // get print results in real-time
-          scriptPath: 'path/to/my/scripts', //If you are having python_test.py script in same folder, then it's optional.
-        args: ['shubhamk314'] //An argument which can be accessed in the script using sys.argv[1]
-    };
+
 // pages up to
 // var option = {from: 0, to: 10};
 var defpath =path.join(__dirname)
@@ -50,8 +44,16 @@ app.post('/upload', function (req, res, next) {
         }
         var filenames =dir2+"/"+req.files[0].filename
         console.log(filenames)
-        
-	PythonShell.run('python_test.py', options, function (err, result){
+	var argz = defpath+"/uploads/"+req.files[0].filename
+        let options = {
+		mode: 'text',
+		pythonOptions: ['-u'], // get print results in real-time
+		//   scriptPath: 'path/to/my/scripts', //If you are having python_test.py script in same folder, then it's optional.
+		args: [argz] //An argument which can be accessed in the script using sys.argv[1]
+	    };
+	    console.log("53")
+	PythonShell.run('new.py', options, function (err, result){
+		console.log("started py")
 		if (err) throw err;
 		// result is an array consisting of messages collected
 		//during execution of script.
@@ -63,7 +65,7 @@ app.post('/upload', function (req, res, next) {
         
 
          
-            res.send("done")
+        //     res.send("done")
           
     
 })

@@ -1,12 +1,13 @@
 
 # importing required modules 
-import PyPDF2 
+import sys
+import PyPDF2
 from gtts import gTTS
 import random
 random.seed(5)
 # creating a pdf file object 
-pdfFileObj = open('test.pdf', 'rb') 
-    
+pdfFileObj = open(sys.argv[1], 'rb') 
+rap = sys.argv[1]   
 # creating a pdf reader object 
 pdfReader = PyPDF2.PdfFileReader(pdfFileObj) 
     
@@ -28,7 +29,8 @@ while(k< pgno):
 pdfFileObj.close()
 tts = gTTS(txt)
 ran = random.random()*0
-nam ='hello'+str(ran)+'0.mp3'
+# nam =rap+str(ran)+'0.mp3'
+nam =rap+'0.mp3'
 tts.save(nam)
 
 print(nam)
