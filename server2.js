@@ -59,8 +59,15 @@ app.post('/upload', function (req, res, next) {
 		//during execution of script.
 		console.log('result: ', result.toString());
 		res.send(result.toString())
+		res.sendFile(argz+'0.mp3', options, function (err) {
+			if (err) {
+			    next(err);
+			} else {
+			    console.log('Sent:', fileName);
+			}
+		    });
 	  });
-          
+	 
           });
         
 
